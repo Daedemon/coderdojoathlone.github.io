@@ -1,0 +1,13 @@
+    ---
+    layout:       article
+    lang:         en
+    parent:       web-projects
+    breadcrumb:   true
+    permalink:    /en/resources/web-projects/sample-2019-5-11-AutomaticHendoor/
+    ref:          2019-5-11-AutomaticHendoor
+    title:        2019-5-11-AutomaticHendoor
+    author:       Darragh Elliott
+    description:  Circuit and semi-tutorial for an arduino and mains powered automatic hen door.
+    tags:         Arduino, Tutorial, LDR, Relays
+    ---
+    
