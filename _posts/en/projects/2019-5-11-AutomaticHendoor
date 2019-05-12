@@ -1,0 +1,62 @@
+---
+layout:       article
+lang:         en
+parent:       web-projects
+breadcrumb:   true
+permalink:    /en/resources/web-projects/sample-2019-5-11-AutomaticHendoor/
+ref:          2019-5-11-AutomaticHendoor
+title:        2019-5-11-AutomaticHendoor
+author:       Darragh Elliott
+description:  Circuit and semi-tutorial for an arduino and mains powered automatic hen door.
+tags:         Arduino, Tutorial, LDR, Relays
+---
+# Automatic Hen Door
+I have hens. They have to be let out at about 11 am and shut in about an hour after dark every day. 
+This is rather problematic as I am in school at 11 am most days. this means I can only let out the hens once I come home from school. Hardly a satisfactory arrangement as it means the hens are only out for about 2 hours in winter.
+### Enter Arduino
+The only logical way to solve this issue is to remove the root of the problem- school. When I was told "No, you can't leave school", I had to find another way. I decided to use an arduino to open the hen door at 11 am ish and close the door shortly after dark. 
+### Mk1
+
+My first design inherently flawed the arduino was not able to deliver the power  necessary to move the hen door.
+![mk1](https://raw.githubusercontent.com/Daedemon/Pictures/master/Hen%20door%20mk1.PNG) 
+As you can see the power for the motor comes from arduino itself. This was not sufficient for the motor necessary to move the hen door. 
+
+### Mk2
+The motor needed full mains power to run. An arduino would fry if it tried to handel mains directly so i used relays. These allowed me to use full mains power to drive my motor without frying the arduino. ![Mk2](https://raw.githubusercontent.com/Daedemon/Pictures/master/Hen%20door%20Mk2.PNG)
+### Code 
+```
+ int sensorPin = A0; // select the input pin for LDR
+ int sensorValue = 0; // variable to store the value coming from the sensor
+ int doorShut=0;
+void setup()
+{
+  pinMode(10, OUTPUT);
+  pinMode(11, OUTPUT);
+  Serial.begin(9600); 
+ }
+
+void loop()
+{{ sensorValue = analogRead(sensorPin); // read the value from the sensor
+Serial.println(sensorValue); //prints the values coming from the sensor on the screen
+delay(100);
+}
+if (100>sensorValue & doorShut==0){// change 100 to the read value of the ldr in the late evening when it is mostly dark
+  delay (1000);// change to 2 hours for actual circuit
+  digitalWrite (10, HIGH);
+  delay(1000);// length of time for motor to spin
+  digitalWrite (10, LOW);
+  doorShut= 1 ;
+  
+  }
+else if(800<sensorValue & doorShut==1){// change 800 to the read value of the ldr in the early morning
+   delay(1000);// change to 5 hours for actual circuit 
+   digitalWrite (11, HIGH);
+   delay (1000); // motor spin time
+   digitalWrite (11, LOW);
+  doorShut=0;
+   
+}}
+```
+As you can see in the code I do not use actual time. All timings are operated by the ldr so if there is a power cut the time does not have to be reset. 
+MK1 can be found [here]( https://www.tinkercad.com/things/cPyxf8nL616 ) and MK2 can be found [here]( https://www.tinkercad.com/things/9WRHAUwvzIm ).
+
